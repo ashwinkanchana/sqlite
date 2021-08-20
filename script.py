@@ -42,6 +42,7 @@ def updateTableSchema():
         ADD COLUMN marks INT DEFAULT 0;
         '''
     )
+    db.commit()
     print("Updated table schema")
 
 
@@ -49,6 +50,7 @@ def dropTable():
     db = get_db()
     cursor = db.cursor()
     cursor.execute("DROP TABLE student;")
+    db.commit()
     print("Table dropped")
 
 
@@ -57,13 +59,9 @@ def insertData(studentData):
     cursor = db.cursor()
     for student in studentData:
         cursor.execute(
-            '''
-            INSERT INTO student
-            (full_name, birth_date)
-            VALUES (?, ?);
-            ''',
-            (student[0], student[1])
-        )
+            f"""INSERT INTO student 
+            (full_name, birth_date) 
+            VALUES ('{student[0]}', '{student[1]}');""")
     db.commit()
     print("Data inserted")
 
@@ -74,11 +72,9 @@ def updateMarksByID(id, marks):
     cursor.execute(
         '''
         UPDATE student 
-        SET marks = ?
-        WHERE id = ?;
-        ''',
-        (marks, id)
-    )
+        SET marks = {}
+        WHERE id = {};
+        '''.format(marks, id))
     db.commit()
     print("Data updated")
 
@@ -89,10 +85,8 @@ def deleteByID(id):
     cursor.execute(
         '''
         DELETE FROM student
-        WHERE ID = ?;
-        ''',
-        (id,)
-    )
+        WHERE ID = {};
+        '''.format(id))
     db.commit()
     print("Data deleted")
 
