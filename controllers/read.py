@@ -5,7 +5,7 @@ def print_table_description():
     db = get_db()
     cursor = db.cursor()
     print("Table description")
-    cursor.execute("PRAGMA table_info('student')")
+    cursor.execute("PRAGMA table_info('{}');".format('student'))
     for row in cursor:
         print(row)
 

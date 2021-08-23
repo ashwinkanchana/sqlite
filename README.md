@@ -1,2 +1,2 @@
 # sqlite
-Python SQLite operations
+Python SQLite CRUD operations
